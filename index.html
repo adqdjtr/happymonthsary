@@ -541,6 +541,224 @@
 
   </section>
 
+        <button onclick="nextPage(6)">
+        Tap for a surprise 💕
+      </button>
+
+    </div>
+
+  </section>
+
+
+  <!-- PAGE 6: PERSONAL LETTER -->
+  <section id="page6" class="page">
+
+    <div class="card">
+
+      <div class="small-heart">💌</div>
+
+      <h2>One Last Thing...</h2>
+
+      <p>
+        May gusto pa talaga akong sabihin sa'yo.
+      </p>
+
+      <button onclick="openLetter()">
+        Open my letter 💗
+      </button>
+
+      <div
+        id="letter"
+        class="final-message"
+        style="display: none; text-align: left;"
+      >
+
+        <div style="text-align: center;">
+          <strong>To my Baby, 🪷</strong>
+        </div>
+
+        <br>
+
+        Happy 1st Monthsary, Baby. 🥺💗
+
+        <br><br>
+
+        Honestly, kapag naiisip ko kung paano tayo nagsimula,
+        natutuwa talaga ako. Dati, crush lang kita.
+        And now... ikaw na yung jowa ko. 🥹💗
+
+        <br><br>
+
+        One of the things I love most about you is the way
+        you would do everything just to make me happy.
+        I notice those little things, Baby.
+        And I hope you know how much I appreciate every effort,
+        every moment, and every little thing you do for me.
+
+        <br><br>
+
+        One of my favorite memories from our first month
+        will always be the time I surprised you by visiting
+        you from Zamboanga all the way to Manila.
+        Seeing you and finally being with you made all
+        the effort worth it. ❤️
+
+        <br><br>
+
+        This is only our first month, but I already know
+        that I want to make so many more memories with you.
+
+        <br><br>
+
+        I promise to love you with all my heart, forever.
+        I promise to keep choosing you, to make you happy,
+        to be there for you, and to love you through all
+        the good days and the difficult ones.
+
+        <br><br>
+
+        And Baby, there's something I really want you to know...
+
+        <br><br>
+
+        I love you so, so much.
+
+        <br><br>
+
+        More than I can probably put into words.
+
+        <br><br>
+
+        And honestly?
+
+        <br><br>
+
+        I can't wait for the day when I won't just call you
+        <strong>my Baby...</strong>
+
+        <br><br>
+
+        but I'll finally get to call you
+        <strong>my wife. 🥹💍</strong>
+
+        <br><br>
+
+        Happy 1st Monthsary, Baby.
+
+        <br><br>
+
+        Here's to our first month,
+        and hopefully to a lifetime of us.
+
+        <br><br>
+
+        <strong>I love you. Always. ❤️</strong>
+
+        <br><br>
+
+        <div style="text-align: center;">
+          — Your Baby, Archie 😊
+        </div>
+
+      </div>
+
+      <br>
+
+      <button
+        id="finalButton"
+        onclick="nextPage(7)"
+        style="display: none;"
+      >
+        Wait... there's one more thing 🌙
+      </button>
+
+    </div>
+
+  </section>
+
+
+  <!-- PAGE 7: FINAL SURPRISE -->
+  <section id="page7" class="page">
+
+    <div class="card">
+
+      <div class="small-heart">🌙</div>
+
+      <h2>One More Thing...</h2>
+
+      <p>
+        Baby, before you leave...
+      </p>
+
+      <p>
+        I want you to remember something.
+      </p>
+
+      <div class="final-message">
+
+        Someday, I hope we look back at this
+        little website and laugh about how
+        cheesy I was. 😂💗
+
+        <br><br>
+
+        Because this is only our beginning.
+
+        <br><br>
+
+        One day, I don't just want to call you
+        my girlfriend.
+
+        <br><br>
+
+        I want to call you
+
+        <br><br>
+
+        <strong style="font-size: 24px;">
+          MY WIFE. 💍
+        </strong>
+
+        <br><br>
+
+        And when that day comes,
+        I'll probably make you another website
+        just to remind you of this first one. 🥹
+
+      </div>
+
+      <button onclick="finalSurprise()">
+        Tap me, Baby 💗
+      </button>
+
+      <div
+        id="finalReveal"
+        style="display: none; margin-top: 20px;"
+      >
+
+        <div style="font-size: 45px;">
+          💗💗💗
+        </div>
+
+        <p>
+          I love you, Baby Jane. 🪷
+        </p>
+
+        <p>
+          Happy 1st Monthsary. ❤️
+        </p>
+
+        <p>
+          Here's to us.
+          Today, tomorrow, and hopefully forever.
+        </p>
+
+      </div>
+
+    </div>
+
+  </section>
+
 
   <script>
 
@@ -872,6 +1090,62 @@
         }
       );
 
+        /* =========================
+       PERSONAL LETTER
+    ========================= */
+
+    function openLetter() {
+
+      const letter =
+        document.getElementById("letter");
+
+      const button =
+        document.getElementById("finalButton");
+
+      letter.style.display = "block";
+
+      button.style.display = "inline-block";
+
+      makeHearts();
+
+      setTimeout(function() {
+
+        letter.scrollIntoView({
+          behavior: "smooth",
+          block: "center"
+        });
+
+      }, 200);
+
+    }
+
+
+    /* =========================
+       FINAL SURPRISE
+    ========================= */
+
+    function finalSurprise() {
+
+      const reveal =
+        document.getElementById("finalReveal");
+
+      reveal.style.display = "block";
+
+      makeHearts();
+
+      setTimeout(function() {
+        makeHearts();
+      }, 500);
+
+      setTimeout(function() {
+        makeHearts();
+      }, 1000);
+
+      setTimeout(function() {
+        makeHearts();
+      }, 1500);
+
+    }
   </script>
 
 </body>
