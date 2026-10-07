@@ -353,6 +353,10 @@
         Hmm... that's not it, Baby. Try again. 🥺
       </div>
 
+   <audio id="ourSong" loop>
+  <source src="our-song.mp3" type="audio/mpeg">
+</audio>
+
       <div class="dots">
         ADQ ♡ DJTR
       </div>
@@ -764,13 +768,15 @@
 
         nextPage(2);
 
-        makeHearts();
+        const music = document.getElementById("ourSong");
 
-      } else {
+  music.play();
 
-        error.style.display = "block";
+  nextPage(2);
 
-      }
+  makeHearts();
+
+}
 
     }
 
@@ -1130,6 +1136,14 @@
       }, 1500);
 
     }
+
+    function startMusic() {
+
+  const music = document.getElementById("ourSong");
+
+  music.play();
+
+}
   </script>
 
 </body>
