@@ -1,0 +1,642 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+  <title>For My Baby 💗</title>
+
+  <style>
+    * {
+      box-sizing: border-box;
+      margin: 0;
+      padding: 0;
+    }
+
+    body {
+      font-family: "Trebuchet MS", Arial, sans-serif;
+      background: linear-gradient(135deg, #ffe8f0, #fff5f8, #fce1ec);
+      color: #7b4057;
+      min-height: 100vh;
+      overflow-x: hidden;
+    }
+
+    .page {
+      min-height: 100vh;
+      display: none;
+      justify-content: center;
+      align-items: center;
+      padding: 25px;
+      text-align: center;
+      position: relative;
+    }
+
+    .page.active {
+      display: flex;
+      animation: fadeIn 1s ease;
+    }
+
+    .card {
+      width: 100%;
+      max-width: 420px;
+      background: rgba(255, 255, 255, 0.78);
+      backdrop-filter: blur(12px);
+      border-radius: 30px;
+      padding: 35px 25px;
+      box-shadow: 0 15px 40px rgba(173, 86, 120, 0.15);
+      border: 1px solid rgba(255, 255, 255, 0.8);
+    }
+
+    .small-heart {
+      font-size: 38px;
+      animation: heartbeat 1.5s infinite;
+      margin-bottom: 15px;
+    }
+
+    h1 {
+      font-size: 30px;
+      color: #c75b82;
+      margin-bottom: 15px;
+    }
+
+    h2 {
+      font-size: 25px;
+      color: #c75b82;
+      margin-bottom: 15px;
+    }
+
+    p {
+      font-size: 16px;
+      line-height: 1.7;
+      margin-bottom: 20px;
+    }
+
+    .subtitle {
+      color: #a7667e;
+      font-size: 14px;
+    }
+
+    input {
+      width: 100%;
+      padding: 15px;
+      border-radius: 18px;
+      border: 2px solid #f3b7cb;
+      background: #fffafd;
+      text-align: center;
+      font-size: 18px;
+      outline: none;
+      color: #8b4862;
+      margin: 15px 0;
+      letter-spacing: 4px;
+    }
+
+    input:focus {
+      border-color: #d87599;
+    }
+
+    button {
+      border: none;
+      background: linear-gradient(135deg, #e98aaa, #c95e86);
+      color: white;
+      padding: 14px 25px;
+      border-radius: 25px;
+      font-size: 16px;
+      font-weight: bold;
+      cursor: pointer;
+      box-shadow: 0 7px 18px rgba(201, 94, 134, 0.25);
+      transition: 0.25s;
+      margin: 7px;
+    }
+
+    button:hover {
+      transform: translateY(-2px) scale(1.02);
+    }
+
+    button:active {
+      transform: scale(0.96);
+    }
+
+    .error {
+      color: #d65d78;
+      font-size: 14px;
+      display: none;
+      margin-top: 10px;
+    }
+
+    .photo-container {
+      width: 100%;
+      margin: 20px auto;
+      border-radius: 25px;
+      overflow: hidden;
+      box-shadow: 0 10px 25px rgba(170, 80, 110, 0.15);
+      background: #f9dce7;
+    }
+
+    .photo-container img {
+      width: 100%;
+      display: block;
+      min-height: 250px;
+      object-fit: cover;
+    }
+
+    .photo-placeholder {
+      min-height: 250px;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      padding: 20px;
+      color: #a65b78;
+      font-size: 15px;
+    }
+
+    .heart-button {
+      font-size: 40px;
+      background: none;
+      box-shadow: none;
+      padding: 5px;
+    }
+
+    .heart-button:hover {
+      transform: scale(1.2);
+      background: none;
+    }
+
+    .reason-box {
+      background: #fff1f6;
+      border-radius: 22px;
+      padding: 25px 18px;
+      margin: 20px 0;
+      min-height: 120px;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      color: #9b526d;
+      font-size: 17px;
+      line-height: 1.6;
+      transition: 0.3s;
+    }
+
+    .final-message {
+      background: #fff4f8;
+      border-radius: 22px;
+      padding: 22px;
+      line-height: 1.8;
+      margin: 20px 0;
+      font-size: 16px;
+    }
+
+    .signature {
+      margin-top: 20px;
+      color: #c75b82;
+      font-weight: bold;
+      font-size: 18px;
+    }
+
+    .heart {
+      position: fixed;
+      bottom: -30px;
+      font-size: 20px;
+      animation: floatUp 5s linear forwards;
+      pointer-events: none;
+      z-index: 10;
+    }
+
+    .sparkle {
+      position: fixed;
+      pointer-events: none;
+      font-size: 18px;
+      animation: sparkle 1s ease-out forwards;
+      z-index: 20;
+    }
+
+    .dots {
+      margin-top: 20px;
+      color: #d487a3;
+      font-size: 13px;
+    }
+
+    @keyframes fadeIn {
+      from {
+        opacity: 0;
+        transform: translateY(15px);
+      }
+
+      to {
+        opacity: 1;
+        transform: translateY(0);
+      }
+    }
+
+    @keyframes heartbeat {
+      0%, 100% {
+        transform: scale(1);
+      }
+
+      50% {
+        transform: scale(1.15);
+      }
+    }
+
+    @keyframes floatUp {
+      0% {
+        transform: translateY(0) rotate(0deg);
+        opacity: 1;
+      }
+
+      100% {
+        transform: translateY(-110vh) rotate(25deg);
+        opacity: 0;
+      }
+    }
+
+    @keyframes sparkle {
+      0% {
+        transform: scale(0);
+        opacity: 1;
+      }
+
+      100% {
+        transform: scale(2) translateY(-30px);
+        opacity: 0;
+      }
+    }
+
+    @media (max-width: 380px) {
+      h1 {
+        font-size: 26px;
+      }
+
+      h2 {
+        font-size: 22px;
+      }
+
+      .card {
+        padding: 28px 18px;
+      }
+    }
+  </style>
+</head>
+
+<body>
+
+  <!-- PAGE 1: SECRET CODE -->
+  <section id="page1" class="page active">
+
+    <div class="card">
+
+      <div class="small-heart">💗</div>
+
+      <h1>Hi, Baby.</h1>
+
+      <p>
+        I made a little something for you...
+      </p>
+
+      <p class="subtitle">
+        But there's a tiny secret you need to know first. 👀
+      </p>
+
+      <p>🔐 Enter the secret code</p>
+
+      <input
+        type="password"
+        id="codeInput"
+        placeholder="••••••"
+        maxlength="6"
+      >
+
+      <br>
+
+      <button onclick="unlock()">
+        Unlock 💗
+      </button>
+
+      <div id="errorMessage" class="error">
+        Hmm... that's not it, Baby. Try again. 🥺
+      </div>
+
+      <div class="dots">
+        made with love ♡
+      </div>
+
+    </div>
+
+  </section>
+
+
+  <!-- PAGE 2: WELCOME -->
+  <section id="page2" class="page">
+
+    <div class="card">
+
+      <div class="small-heart">🌷</div>
+
+      <h2>Happy 1st Monthsary, Baby!</h2>
+
+      <p>
+        You actually found your way in. 🥹
+      </p>
+
+      <p>
+        I made this little corner of the internet
+        especially for you.
+      </p>
+
+      <p>
+        It's nothing fancy...
+        just a tiny reminder of how happy I am
+        that you're in my life. 💗
+      </p>
+
+      <button onclick="nextPage(3)">
+        There's more... 👀
+      </button>
+
+    </div>
+
+  </section>
+
+
+  <!-- PAGE 3: PHOTO -->
+  <section id="page3" class="page">
+
+    <div class="card">
+
+      <h2>My Favorite Person 🌸</h2>
+
+      <p>
+        Okay, first...
+        let me admire you for a second. 🥹
+      </p>
+
+      <!-- PHOTO GOES HERE -->
+      <div class="photo-container">
+
+        <div class="photo-placeholder">
+          📸<br><br>
+          Your favorite photo of Baby goes here.
+          <br><br>
+          We'll add your photo after this page is working. 💗
+        </div>
+
+      </div>
+
+      <p>
+        Isn't my Baby pretty? 🥺
+      </p>
+
+      <button onclick="nextPage(4)">
+        Next 💗
+      </button>
+
+    </div>
+
+  </section>
+
+
+  <!-- PAGE 4: INTERACTIVE REASONS -->
+  <section id="page4" class="page">
+
+    <div class="card">
+
+      <h2>A Little Something... 🧸</h2>
+
+      <p>
+        Tap the heart.
+      </p>
+
+      <button class="heart-button" onclick="showReason()">
+        💗
+      </button>
+
+      <div id="reasonBox" class="reason-box">
+        Tap it... I promise there's something waiting. 👀
+      </div>
+
+      <button onclick="nextPage(5)">
+        One more thing... 🌙
+      </button>
+
+    </div>
+
+  </section>
+
+
+  <!-- PAGE 5: FINAL MESSAGE -->
+  <section id="page5" class="page">
+
+    <div class="card">
+
+      <div class="small-heart">💌</div>
+
+      <h2>For My Baby</h2>
+
+      <div class="final-message">
+
+        Happy 1st Monthsary, Baby. 💗
+
+        <br><br>
+
+        One month might seem like a short amount
+        of time, but I'm genuinely grateful
+        for every moment we've shared.
+
+        <br><br>
+
+        Thank you for being someone who makes
+        my days a little happier, my smiles
+        a little bigger, and my heart a little fuller.
+
+        <br><br>
+
+        I don't know what the future holds,
+        but I'm really happy that right now,
+        I get to spend this chapter with you.
+
+        <br><br>
+
+        Here's to our first month...
+        and hopefully to many, many more. 🌷
+
+        <br><br>
+
+        I love you, Baby. 🥺💗
+
+      </div>
+
+      <div class="signature">
+        — Your Baby 💗
+      </div>
+
+      <br>
+
+      <button onclick="makeHearts()">
+        Tap for a surprise 💕
+      </button>
+
+    </div>
+
+  </section>
+
+
+  <script>
+
+    /* SECRET CODE */
+    function unlock() {
+
+      const input = document.getElementById("codeInput").value;
+      const error = document.getElementById("errorMessage");
+
+      if (input === "090826") {
+
+        error.style.display = "none";
+
+        nextPage(2);
+
+        makeHearts();
+
+      } else {
+
+        error.style.display = "block";
+
+      }
+
+    }
+
+
+    /* PAGE NAVIGATION */
+    function nextPage(pageNumber) {
+
+      document.querySelectorAll(".page").forEach(function(page) {
+        page.classList.remove("active");
+      });
+
+      document.getElementById("page" + pageNumber)
+        .classList.add("active");
+
+      window.scrollTo({
+        top: 0,
+        behavior: "smooth"
+      });
+
+      makeHearts();
+
+    }
+
+
+    /* INTERACTIVE REASONS */
+    const reasons = [
+
+      "I love the way you make me smile without even trying. 💗",
+
+      "I love having someone like you to share little moments with. 🌷",
+
+      "I love your smile. Seriously. It should be illegal to be that cute. 🥹",
+
+      "I love how you make ordinary days feel a little more special. ✨",
+
+      "I love being able to call you my Baby. 🧸",
+
+      "And most of all... I love that it's YOU. 💗"
+
+    ];
+
+    let reasonIndex = 0;
+
+    function showReason() {
+
+      const box = document.getElementById("reasonBox");
+
+      box.style.transform = "scale(0.95)";
+
+      setTimeout(function() {
+
+        box.innerHTML = reasons[reasonIndex];
+
+        box.style.transform = "scale(1)";
+
+        reasonIndex++;
+
+        if (reasonIndex >= reasons.length) {
+          reasonIndex = 0;
+        }
+
+      }, 150);
+
+      makeHearts();
+
+    }
+
+
+    /* FLOATING HEARTS */
+    function makeHearts() {
+
+      const hearts = ["💗", "💕", "💖", "💘", "🌸", "✨"];
+
+      for (let i = 0; i < 8; i++) {
+
+        const heart = document.createElement("div");
+
+        heart.classList.add("heart");
+
+        heart.innerHTML =
+          hearts[Math.floor(Math.random() * hearts.length)];
+
+        heart.style.left =
+          Math.random() * 100 + "vw";
+
+        heart.style.animationDuration =
+          (3 + Math.random() * 3) + "s";
+
+        heart.style.fontSize =
+          (15 + Math.random() * 20) + "px";
+
+        document.body.appendChild(heart);
+
+        setTimeout(function() {
+          heart.remove();
+        }, 6000);
+
+      }
+
+    }
+
+
+    /* CLICK SPARKLES */
+    document.addEventListener("click", function(event) {
+
+      const sparkle = document.createElement("div");
+
+      sparkle.classList.add("sparkle");
+
+      sparkle.innerHTML = "✨";
+
+      sparkle.style.left = event.clientX + "px";
+
+      sparkle.style.top = event.clientY + "px";
+
+      document.body.appendChild(sparkle);
+
+      setTimeout(function() {
+        sparkle.remove();
+      }, 1000);
+
+    });
+
+
+    /* ENTER KEY FOR CODE */
+    document.getElementById("codeInput").addEventListener(
+      "keypress",
+      function(event) {
+
+        if (event.key === "Enter") {
+          unlock();
+        }
+
+      }
+    );
+
+  </script>
+
+</body>
+</html>
