@@ -1,3 +1,4 @@
+```html
 <!DOCTYPE html>
 <html lang="en">
 <head>
@@ -33,13 +34,13 @@
 
     .page.active {
       display: flex;
-      animation: fadeIn 1s ease;
+      animation: fadeIn 0.8s ease;
     }
 
     .card {
       width: 100%;
       max-width: 420px;
-      background: rgba(255, 255, 255, 0.78);
+      background: rgba(255, 255, 255, 0.82);
       backdrop-filter: blur(12px);
       border-radius: 30px;
       padding: 35px 25px;
@@ -123,31 +124,59 @@
       margin-top: 10px;
     }
 
-    .photo-container {
+    /* PHOTO GALLERY */
+
+    .photo-frame {
+      position: relative;
       width: 100%;
       margin: 20px auto;
+      padding: 8px;
+      background: white;
       border-radius: 25px;
-      overflow: hidden;
-      box-shadow: 0 10px 25px rgba(170, 80, 110, 0.15);
-      background: #f9dce7;
+      box-shadow: 0 12px 30px rgba(170, 80, 110, 0.18);
+      transform: rotate(-1deg);
+      transition: 0.4s ease;
     }
 
-    .photo-container img {
+    .photo-frame:hover {
+      transform: rotate(0deg) scale(1.01);
+    }
+
+    .photo-frame img {
       width: 100%;
-      display: block;
-      min-height: 250px;
+      height: 330px;
       object-fit: cover;
+      display: block;
+      border-radius: 19px;
     }
 
-    .photo-placeholder {
-      min-height: 250px;
+    .photo-caption {
+      font-size: 14px;
+      color: #a45d77;
+      margin: 14px 5px 7px;
+      font-style: italic;
+    }
+
+    .photo-counter {
+      font-size: 13px;
+      color: #c77b97;
+      margin-top: 10px;
+    }
+
+    .photo-buttons {
       display: flex;
       justify-content: center;
       align-items: center;
-      padding: 20px;
-      color: #a65b78;
-      font-size: 15px;
+      gap: 5px;
+      flex-wrap: wrap;
     }
+
+    .photo-buttons button {
+      font-size: 14px;
+      padding: 11px 17px;
+    }
+
+    /* REASONS */
 
     .heart-button {
       font-size: 40px;
@@ -176,6 +205,8 @@
       transition: 0.3s;
     }
 
+    /* FINAL MESSAGE */
+
     .final-message {
       background: #fff4f8;
       border-radius: 22px;
@@ -191,6 +222,8 @@
       font-weight: bold;
       font-size: 18px;
     }
+
+    /* FLOATING HEARTS */
 
     .heart {
       position: fixed;
@@ -262,6 +295,7 @@
     }
 
     @media (max-width: 380px) {
+
       h1 {
         font-size: 26px;
       }
@@ -273,13 +307,18 @@
       .card {
         padding: 28px 18px;
       }
+
+      .photo-frame img {
+        height: 280px;
+      }
     }
   </style>
 </head>
 
 <body>
 
-  <!-- PAGE 1: SECRET CODE -->
+
+  <!-- PAGE 1 -->
   <section id="page1" class="page active">
 
     <div class="card">
@@ -324,7 +363,7 @@
   </section>
 
 
-  <!-- PAGE 2: WELCOME -->
+  <!-- PAGE 2 -->
   <section id="page2" class="page">
 
     <div class="card">
@@ -357,36 +396,58 @@
   </section>
 
 
-  <!-- PAGE 3: PHOTO -->
+  <!-- PAGE 3: PHOTO GALLERY -->
   <section id="page3" class="page">
 
     <div class="card">
 
       <h2>My Favorite Person 🌸</h2>
 
-      <p>
+      <p id="photoIntro">
         Okay, first...
         let me admire you for a second. 🥹
       </p>
 
-      <!-- PHOTO GOES HERE -->
-      <div class="photo-container">
+      <div class="photo-frame" id="photoFrame">
 
-        <div class="photo-placeholder">
-          📸<br><br>
-          Your favorite photo of Baby goes here.
-          <br><br>
-          We'll add your photo after this page is working. 💗
+        <img
+          id="mainPhoto"
+          src="baby1.jpg"
+          alt="My Baby"
+        >
+
+        <div
+          id="photoCaption"
+          class="photo-caption"
+        >
+          "My favorite person. 💗"
         </div>
 
       </div>
 
-      <p>
-        Isn't my Baby pretty? 🥺
-      </p>
+      <div
+        id="photoCounter"
+        class="photo-counter"
+      >
+        1 / 4
+      </div>
+
+      <div class="photo-buttons">
+
+        <button onclick="previousPhoto()">
+          ← Back
+        </button>
+
+        <button onclick="nextPhoto()">
+          Next Photo 💗
+        </button>
+
+      </div>
+
+      <br>
 
       <button onclick="nextPage(4)">
-        Next 💗
+        There's more... 🌷
       </button>
 
     </div>
@@ -394,7 +455,7 @@
   </section>
 
 
-  <!-- PAGE 4: INTERACTIVE REASONS -->
+  <!-- PAGE 4 -->
   <section id="page4" class="page">
 
     <div class="card">
@@ -405,11 +466,17 @@
         Tap the heart.
       </p>
 
-      <button class="heart-button" onclick="showReason()">
+      <button
+        class="heart-button"
+        onclick="showReason()"
+      >
         💗
       </button>
 
-      <div id="reasonBox" class="reason-box">
+      <div
+        id="reasonBox"
+        class="reason-box"
+      >
         Tap it... I promise there's something waiting. 👀
       </div>
 
@@ -422,7 +489,7 @@
   </section>
 
 
-  <!-- PAGE 5: FINAL MESSAGE -->
+  <!-- PAGE 5 -->
   <section id="page5" class="page">
 
     <div class="card">
@@ -481,11 +548,17 @@
 
   <script>
 
-    /* SECRET CODE */
+    /* =========================
+       SECRET CODE
+    ========================= */
+
     function unlock() {
 
-      const input = document.getElementById("codeInput").value;
-      const error = document.getElementById("errorMessage");
+      const input =
+        document.getElementById("codeInput").value;
+
+      const error =
+        document.getElementById("errorMessage");
 
       if (input === "090826") {
 
@@ -504,14 +577,22 @@
     }
 
 
-    /* PAGE NAVIGATION */
+    /* =========================
+       PAGE NAVIGATION
+    ========================= */
+
     function nextPage(pageNumber) {
 
-      document.querySelectorAll(".page").forEach(function(page) {
-        page.classList.remove("active");
-      });
+      document
+        .querySelectorAll(".page")
+        .forEach(function(page) {
 
-      document.getElementById("page" + pageNumber)
+          page.classList.remove("active");
+
+        });
+
+      document
+        .getElementById("page" + pageNumber)
         .classList.add("active");
 
       window.scrollTo({
@@ -524,7 +605,114 @@
     }
 
 
-    /* INTERACTIVE REASONS */
+    /* =========================
+       PHOTO GALLERY
+    ========================= */
+
+    const photos = [
+
+      {
+        src: "baby1.jpg",
+        caption: "My favorite person. 💗"
+      },
+
+      {
+        src: "baby2.jpg",
+        caption: "How can someone be this cute? 🥹"
+      },
+
+      {
+        src: "baby3.jpg",
+        caption: "One of my favorite smiles. 🌷"
+      },
+
+      {
+        src: "baby4.jpg",
+        caption: "And yes... I could look at you forever. 💕"
+      }
+
+    ];
+
+    let currentPhoto = 0;
+
+
+    function updatePhoto() {
+
+      const image =
+        document.getElementById("mainPhoto");
+
+      const caption =
+        document.getElementById("photoCaption");
+
+      const counter =
+        document.getElementById("photoCounter");
+
+      const frame =
+        document.getElementById("photoFrame");
+
+
+      frame.style.opacity = "0";
+
+      frame.style.transform =
+        "rotate(2deg) scale(0.97)";
+
+
+      setTimeout(function() {
+
+        image.src =
+          photos[currentPhoto].src;
+
+        caption.innerHTML =
+          photos[currentPhoto].caption;
+
+        counter.innerHTML =
+          (currentPhoto + 1) +
+          " / " +
+          photos.length;
+
+
+        frame.style.opacity = "1";
+
+        frame.style.transform =
+          "rotate(-1deg) scale(1)";
+
+      }, 200);
+
+    }
+
+
+    function nextPhoto() {
+
+      currentPhoto++;
+
+      if (currentPhoto >= photos.length) {
+        currentPhoto = 0;
+      }
+
+      updatePhoto();
+
+      makeHearts();
+
+    }
+
+
+    function previousPhoto() {
+
+      currentPhoto--;
+
+      if (currentPhoto < 0) {
+        currentPhoto = photos.length - 1;
+      }
+
+      updatePhoto();
+
+    }
+
+
+    /* =========================
+       INTERACTIVE REASONS
+    ========================= */
+
     const reasons = [
 
       "I love the way you make me smile without even trying. 💗",
@@ -543,17 +731,24 @@
 
     let reasonIndex = 0;
 
+
     function showReason() {
 
-      const box = document.getElementById("reasonBox");
+      const box =
+        document.getElementById("reasonBox");
 
-      box.style.transform = "scale(0.95)";
+      box.style.transform =
+        "scale(0.95)";
+
 
       setTimeout(function() {
 
-        box.innerHTML = reasons[reasonIndex];
+        box.innerHTML =
+          reasons[reasonIndex];
 
-        box.style.transform = "scale(1)";
+        box.style.transform =
+          "scale(1)";
+
 
         reasonIndex++;
 
@@ -568,33 +763,56 @@
     }
 
 
-    /* FLOATING HEARTS */
+    /* =========================
+       FLOATING HEARTS
+    ========================= */
+
     function makeHearts() {
 
-      const hearts = ["💗", "💕", "💖", "💘", "🌸", "✨"];
+      const hearts = [
+        "💗",
+        "💕",
+        "💖",
+        "💘",
+        "🌸",
+        "✨"
+      ];
+
 
       for (let i = 0; i < 8; i++) {
 
-        const heart = document.createElement("div");
+        const heart =
+          document.createElement("div");
 
         heart.classList.add("heart");
 
         heart.innerHTML =
-          hearts[Math.floor(Math.random() * hearts.length)];
+          hearts[
+            Math.floor(
+              Math.random() * hearts.length
+            )
+          ];
+
 
         heart.style.left =
           Math.random() * 100 + "vw";
 
+
         heart.style.animationDuration =
           (3 + Math.random() * 3) + "s";
+
 
         heart.style.fontSize =
           (15 + Math.random() * 20) + "px";
 
+
         document.body.appendChild(heart);
 
+
         setTimeout(function() {
+
           heart.remove();
+
         }, 6000);
 
       }
@@ -602,41 +820,64 @@
     }
 
 
-    /* CLICK SPARKLES */
-    document.addEventListener("click", function(event) {
+    /* =========================
+       CLICK SPARKLES
+    ========================= */
 
-      const sparkle = document.createElement("div");
-
-      sparkle.classList.add("sparkle");
-
-      sparkle.innerHTML = "✨";
-
-      sparkle.style.left = event.clientX + "px";
-
-      sparkle.style.top = event.clientY + "px";
-
-      document.body.appendChild(sparkle);
-
-      setTimeout(function() {
-        sparkle.remove();
-      }, 1000);
-
-    });
-
-
-    /* ENTER KEY FOR CODE */
-    document.getElementById("codeInput").addEventListener(
-      "keypress",
+    document.addEventListener(
+      "click",
       function(event) {
 
-        if (event.key === "Enter") {
-          unlock();
-        }
+        const sparkle =
+          document.createElement("div");
+
+        sparkle.classList.add("sparkle");
+
+        sparkle.innerHTML = "✨";
+
+        sparkle.style.left =
+          event.clientX + "px";
+
+        sparkle.style.top =
+          event.clientY + "px";
+
+
+        document.body.appendChild(
+          sparkle
+        );
+
+
+        setTimeout(function() {
+
+          sparkle.remove();
+
+        }, 1000);
 
       }
     );
+
+
+    /* =========================
+       ENTER KEY
+    ========================= */
+
+    document
+      .getElementById("codeInput")
+      .addEventListener(
+        "keypress",
+        function(event) {
+
+          if (event.key === "Enter") {
+
+            unlock();
+
+          }
+
+        }
+      );
 
   </script>
 
 </body>
 </html>
+```
